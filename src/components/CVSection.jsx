@@ -41,8 +41,8 @@ const CVSection = () => {
                         </div>
 
                         {/* Download Button */}
-                        <motion.a
-                            href="/suyashmotkari.pdf"
+                        <a
+                            href={`${import.meta.env.BASE_URL}suyashmotkari.pdf`}
                             download="Suyash_Motkari_CV.pdf"
                             whileHover={{ scale: 1.05, backgroundColor: "rgba(0, 243, 255, 0.2)" }}
                             whileTap={{ scale: 0.95 }}
@@ -50,7 +50,7 @@ const CVSection = () => {
                         >
                             <Download size={20} />
                             DOWNLOAD CV
-                        </motion.a>
+                        </a>
                     </div>
 
                     {/* Background Grid */}

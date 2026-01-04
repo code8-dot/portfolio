@@ -36,7 +36,7 @@ const CyberAvatar = () => {
                 {/* Static Helmet Image */}
                 <div className="relative w-full h-full rounded-full overflow-hidden border-2 border-cyber/30 shadow-[0_0_50px_rgba(0,243,255,0.3)] bg-black z-10">
                     <img
-                        src="/avatar.png"
+                        src={`${import.meta.env.BASE_URL}avatar.png`}
                         alt="Cybernetic Avatar"
                         className="w-full h-full object-cover scale-110"
                     />

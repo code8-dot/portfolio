@@ -61,7 +61,7 @@ const Navbar = () => {
                                 </span>
                             </a>
                         ))}
-                        <a href="/suyashmotkari.pdf" download="Suyash_Motkari_CV.pdf" className="px-6 py-2 bg-white/5 border border-white/10 rounded-sm font-mono text-xs hover:bg-cyber hover:text-black hover:border-cyber transition-all duration-300">
+                        <a href={`${import.meta.env.BASE_URL}suyashmotkari.pdf`} download="Suyash_Motkari_CV.pdf" className="px-6 py-2 bg-white/5 border border-white/10 rounded-sm font-mono text-xs hover:bg-cyber hover:text-black hover:border-cyber transition-all duration-300">
                             DOWNLOAD_CV
                         </a>
                     </div>
