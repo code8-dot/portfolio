@@ -40,7 +40,7 @@ const Navbar = () => {
                             </div>
                         </div>
                         <span className="font-orbitron font-bold text-xl tracking-widest text-white group-hover:text-cyber transition-colors">
-                            NEXUS
+                            WELCOME!
                         </span>
                     </div>
 
