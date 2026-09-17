@@ -1,96 +1,109 @@
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import { motion } from 'framer-motion';
-import { Terminal, Code, Cpu, Download, Linkedin, Mail } from 'lucide-react';
-import HackerText from './HackerText';
-import CyberAvatar from './CyberAvatar';
+import { ArrowUpRight, Linkedin, Mail, ArrowDown } from 'lucide-react';
+import TextReveal from './TextReveal';
+
+const Hero3D = lazy(() => import('./Hero3D'));
 
 const Hero = () => {
     return (
-        <section className="min-h-screen flex items-center justify-center relative px-4 pt-20">
-            <div className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <section className="min-h-screen flex items-center relative px-6 pt-28 pb-10">
+            <div className="max-w-6xl w-full mx-auto grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-4 items-center relative">
 
                 {/* Text Content */}
-                <motion.div
-                    initial={{ opacity: 0, x: -50 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.8, ease: "easeOut" }}
-                    className="space-y-6 relative z-10"
-                >
-                    <div className="flex items-center gap-2 text-cyber font-mono text-sm tracking-widest bg-cyber/10 w-fit px-3 py-1 rounded border border-cyber/30">
-                        <Terminal size={14} />
-                        <span>SYSTEM_ONLINE_V.2.5.0</span>
-                    </div>
+                <div className="space-y-8 relative z-10">
+                    <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, delay: 0.1 }}
+                        className="flex items-center gap-2 text-paper-dim text-xs tracking-[0.25em] uppercase"
+                    >
+                        <span className="w-6 h-px bg-accent" />
+                        AI/ML Engineer &amp; Full-Stack Developer
+                    </motion.div>
 
-                    <h1 className="text-5xl md:text-7xl font-bold font-orbitron tracking-tight leading-none">
-                        HI, I'M <br />
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyber via-white to-cyber-purple">
-                            <HackerText text="SUYASH MOTKARI" />
+                    <h1 className="font-display font-semibold text-5xl sm:text-6xl lg:text-7xl leading-[1.02] tracking-tight text-balance">
+                        <TextReveal text="Building intelligent" delay={0.15} onMount />
+                        <br />
+                        <TextReveal text="products that" delay={0.35} onMount />
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent via-accent-soft to-paper">
+                            <TextReveal text="feel inevitable." delay={0.5} onMount />
                         </span>
                     </h1>
 
-                    <div className="text-xl md:text-2xl font-mono text-gray-300 h-8">
-                        <span className="text-cyber-purple">{">"}</span> <HackerText text="AI/ML Engineer & Full Stack Dev" />
-                    </div>
+                    <motion.p
+                        initial={{ opacity: 0, y: 14 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.7, delay: 0.85 }}
+                        className="text-paper-dim text-lg leading-relaxed max-w-lg"
+                    >
+                        I design and ship end-to-end systems across
+                        <span className="text-paper"> deep learning</span>,
+                        <span className="text-paper"> web</span>, and
+                        <span className="text-paper"> mobile</span> — turning
+                        ambitious ideas into production-grade software.
+                    </motion.p>
 
-                    <p className="text-gray-400 max-w-lg text-lg leading-relaxed border-l-2 border-cyber/30 pl-6">
-                        Building impactful solutions across
-                        <span className="text-cyber"> AI/ML</span>,
-                        <span className="text-cyber-purple"> Web</span>, and
-                        <span className="text-white"> Mobile</span>.
-                        Specialized in Deep Learning, Computer Vision, and Scalable Architectures.
-                    </p>
-
-                    <div className="flex flex-wrap gap-4 pt-4">
-                        <motion.a
+                    <motion.div
+                        initial={{ opacity: 0, y: 14 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.7, delay: 1 }}
+                        className="flex flex-wrap items-center gap-4 pt-2"
+                    >
+                        <a
                             href="#projects"
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                            className="px-8 py-4 bg-cyber/10 border border-cyber text-cyber font-mono rounded hover:bg-cyber hover:text-black transition-all duration-300 backdrop-blur-sm cursor-pointer"
+                            className="group flex items-center gap-2 px-7 py-4 bg-paper text-ink font-medium rounded-full hover:bg-accent transition-colors duration-300"
                         >
-                            VIEW_PROJECTS
-                        </motion.a>
+                            View Work
+                            <ArrowUpRight size={17} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                        </a>
 
-                        <div className="flex gap-4">
-                            <motion.a
+                        <div className="flex gap-3">
+                            <a
                                 href="https://linkedin.com/in/suyash-motkari-9733a3217"
                                 target="_blank"
-                                whileHover={{ scale: 1.1, color: '#00f3ff' }}
-                                className="p-4 border border-white/10 text-white rounded hover:bg-white/5 transition-all duration-300 backdrop-blur-sm flex items-center justify-center group"
+                                rel="noopener noreferrer"
+                                className="w-14 h-14 flex items-center justify-center rounded-full border border-white/10 text-paper-dim hover:text-paper hover:border-accent/50 transition-all duration-300"
+                                aria-label="LinkedIn"
                             >
-                                <Linkedin size={20} className="group-hover:text-cyber transition-colors" />
-                            </motion.a>
-                            <motion.a
+                                <Linkedin size={19} />
+                            </a>
+                            <a
                                 href="mailto:Suyash.Motkari@gmail.com"
-                                whileHover={{ scale: 1.1, color: '#bc13fe' }}
-                                className="p-4 border border-white/10 text-white rounded hover:bg-white/5 transition-all duration-300 backdrop-blur-sm flex items-center justify-center group"
+                                className="w-14 h-14 flex items-center justify-center rounded-full border border-white/10 text-paper-dim hover:text-paper hover:border-accent/50 transition-all duration-300"
+                                aria-label="Email"
                             >
-                                <Mail size={20} className="group-hover:text-cyber-purple transition-colors" />
-                            </motion.a>
+                                <Mail size={19} />
+                            </a>
                         </div>
-                    </div>
-                </motion.div>
+                    </motion.div>
+                </div>
 
-                {/* Visual Element (3D Avatar) */}
+                {/* 3D Visual */}
                 <motion.div
-                    initial={{ opacity: 0, scale: 0.8 }}
+                    initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 1, delay: 0.2 }}
-                    className="relative w-full flex items-center justify-center lg:justify-end"
+                    transition={{ duration: 1.2, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                    className="relative w-full aspect-square max-w-lg mx-auto lg:mx-0"
                 >
-                    <CyberAvatar />
+                    <Suspense fallback={<div className="absolute inset-[15%] rounded-full bg-accent/20 blur-3xl animate-pulse" />}>
+                        <Hero3D />
+                    </Suspense>
                 </motion.div>
-
             </div>
 
-            {/* Scroll indicator */}
-            <motion.div
-                className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+            <motion.a
+                href="#projects"
+                className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-paper-faint hover:text-paper-dim transition-colors"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 1, duration: 1 }}
+                transition={{ delay: 1.3, duration: 1 }}
             >
-                <div className="w-[1px] h-16 bg-gradient-to-b from-cyber to-transparent animate-pulse" />
-            </motion.div>
+                <span className="text-[10px] tracking-[0.2em] uppercase">Scroll</span>
+                <motion.span animate={{ y: [0, 6, 0] }} transition={{ duration: 1.8, repeat: Infinity }}>
+                    <ArrowDown size={14} />
+                </motion.span>
+            </motion.a>
         </section>
     );
 };

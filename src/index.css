@@ -1,14 +1,18 @@
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Inter:wght@300;400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  background-color: #050505;
-  color: #ffffff;
+  background-color: #0a0a0b;
+  color: #f5f5f4;
   font-family: 'Inter', sans-serif;
   overflow-x: hidden;
+}
+
+html {
+  scroll-behavior: auto;
 }
 
 /* Custom Scrollbar */
@@ -17,25 +21,43 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #050505;
+  background: #0a0a0b;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #1f1f1f;
+  background: #26262b;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #00f3ff;
+  background: #8b7cf6;
 }
 
-/* Base interactive elements */
 body {
   cursor: default;
 }
 
-/* Selection color */
 ::selection {
-  background: #bc13fe;
-  color: white;
+  background: #8b7cf6;
+  color: #0a0a0b;
+}
+
+/* Applied by CustomCursor only once it's active, so the native cursor
+   survives if JS never runs. */
+.cursor-hidden,
+.cursor-hidden * {
+  cursor: none;
+}
+
+.cursor-hidden input,
+.cursor-hidden textarea {
+  cursor: text;
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+.bg-grain {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
 }

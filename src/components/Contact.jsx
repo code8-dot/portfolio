@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Send, Mail, MapPin, Phone, Linkedin, Loader, CheckCircle, AlertCircle } from 'lucide-react';
 import emailjs from '@emailjs/browser';
+import TextReveal from './TextReveal';
 
 const Contact = () => {
     const form = useRef();
@@ -13,166 +14,145 @@ const Contact = () => {
         setIsLoading(true);
         setStatus(null);
 
-        // REPLACE THESE WITH YOUR ACTUAL EMAILJS SERVICE ID, TEMPLATE ID, AND PUBLIC KEY
         const SERVICE_ID = 'service_0czvprb';
         const TEMPLATE_ID = 'YOUR_TEMPLATE_ID';
         const PUBLIC_KEY = 'YOUR_PUBLIC_KEY';
 
-        if (SERVICE_ID === 'YOUR_SERVICE_ID') {
+        if (TEMPLATE_ID === 'YOUR_TEMPLATE_ID') {
             setTimeout(() => {
                 setIsLoading(false);
-                alert("EmailJS not configured yet! Please add your credentials in Contact.jsx");
-            }, 1000);
+                alert('EmailJS not configured yet! Please add your credentials in Contact.jsx');
+            }, 800);
             return;
         }
 
         emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, form.current, PUBLIC_KEY)
-            .then((result) => {
-                console.log(result.text);
+            .then(() => {
                 setIsLoading(false);
                 setStatus('success');
                 e.target.reset();
                 setTimeout(() => setStatus(null), 5000);
-            }, (error) => {
-                console.log(error.text);
+            }, () => {
                 setIsLoading(false);
                 setStatus('error');
             });
     };
 
+    const contactItems = [
+        { icon: <Mail size={19} />, label: 'Email', value: 'Suyash.Motkari@gmail.com', href: 'mailto:Suyash.Motkari@gmail.com' },
+        { icon: <MapPin size={19} />, label: 'Location', value: 'Nashik, Maharashtra', href: null },
+        { icon: <Phone size={19} />, label: 'Phone', value: '+91 7058911643', href: 'tel:+917058911643' },
+        { icon: <Linkedin size={19} />, label: 'LinkedIn', value: 'Connect on LinkedIn', href: 'https://linkedin.com/in/suyash-motkari-9733a3217' },
+    ];
+
     return (
-        <section id="contact" className="py-20 px-4 relative overflow-hidden">
-            {/* Decorative Background */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-cyber-purple/10 rounded-full blur-[120px] pointer-events-none" />
+        <section id="contact" className="py-28 px-6 relative overflow-hidden">
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[36rem] h-[36rem] bg-accent/10 rounded-full blur-[140px] pointer-events-none" />
 
-            <div className="max-w-4xl mx-auto relative z-10 grid grid-cols-1 md:grid-cols-2 gap-12">
+            <div className="max-w-5xl mx-auto relative z-10 grid grid-cols-1 md:grid-cols-2 gap-16">
 
-                {/* Contact Info */}
                 <motion.div
-                    initial={{ opacity: 0, x: -30 }}
-                    whileInView={{ opacity: 1, x: 0 }}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="space-y-8"
+                    className="space-y-10"
                 >
                     <div>
-                        <h2 className="text-4xl font-orbitron font-bold mb-2">INITIALIZE <br /><span className="text-cyber">CONNECTION</span></h2>
-                        <p className="text-gray-400">Ready to build the unexpected. Let's collaborate.</p>
+                        <div className="flex items-center gap-2 text-xs tracking-[0.25em] uppercase text-paper-dim mb-4">
+                            <span className="w-6 h-px bg-accent" />
+                            Get In Touch
+                        </div>
+                        <h2 className="font-display font-semibold text-4xl md:text-5xl text-paper text-balance">
+                            <TextReveal text="Let's build" />
+                            <br />
+                            <span className="text-accent"><TextReveal text="something great." delay={0.15} /></span>
+                        </h2>
+                        <p className="text-paper-dim mt-4 max-w-sm">
+                            Open to full-time roles, freelance projects, and interesting collaborations.
+                        </p>
                     </div>
 
-                    <div className="space-y-6">
-                        <a href="mailto:Suyash.Motkari@gmail.com" className="flex items-center gap-4 text-gray-300 hover:text-white transition-colors group">
-                            <div className="w-12 h-12 bg-white/5 border border-white/10 rounded flex items-center justify-center text-cyber group-hover:border-cyber/50 group-hover:shadow-[0_0_10px_rgba(0,243,255,0.2)] transition-all">
-                                <Mail size={20} />
-                            </div>
-                            <div>
-                                <span className="text-xs text-cyber-purple font-mono block mb-1">EMAIL</span>
-                                <span className="font-mono">Suyash.Motkari@gmail.com</span>
-                            </div>
-                        </a>
-
-                        <div className="flex items-center gap-4 text-gray-300 hover:text-white transition-colors group">
-                            <div className="w-12 h-12 bg-white/5 border border-white/10 rounded flex items-center justify-center text-cyber group-hover:border-cyber/50 group-hover:shadow-[0_0_10px_rgba(0,243,255,0.2)] transition-all">
-                                <MapPin size={20} />
-                            </div>
-                            <div>
-                                <span className="text-xs text-cyber-purple font-mono block mb-1">LOCATION</span>
-                                <span className="font-mono">Nashik, Maharashtra</span>
-                            </div>
-                        </div>
-
-                        <div className="flex items-center gap-4 text-gray-300 hover:text-white transition-colors group">
-                            <div className="w-12 h-12 bg-white/5 border border-white/10 rounded flex items-center justify-center text-cyber group-hover:border-cyber/50 group-hover:shadow-[0_0_10px_rgba(0,243,255,0.2)] transition-all">
-                                <Phone size={20} />
-                            </div>
-                            <div>
-                                <span className="text-xs text-cyber-purple font-mono block mb-1">PHONE</span>
-                                <span className="font-mono">+91 7058911643</span>
-                            </div>
-                        </div>
-
-                        <a href="https://linkedin.com/in/suyash-motkari-9733a3217" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 text-gray-300 hover:text-white transition-colors group">
-                            <div className="w-12 h-12 bg-white/5 border border-white/10 rounded flex items-center justify-center text-cyber group-hover:border-cyber/50 group-hover:shadow-[0_0_10px_rgba(0,243,255,0.2)] transition-all">
-                                <Linkedin size={20} />
-                            </div>
-                            <div>
-                                <span className="text-xs text-cyber-purple font-mono block mb-1">LINKEDIN</span>
-                                <span className="font-mono">Connect on LinkedIn</span>
-                            </div>
-                        </a>
+                    <div className="space-y-1">
+                        {contactItems.map((item) => {
+                            const Wrapper = item.href ? 'a' : 'div';
+                            return (
+                                <Wrapper
+                                    key={item.label}
+                                    href={item.href}
+                                    target={item.href?.startsWith('http') ? '_blank' : undefined}
+                                    rel={item.href?.startsWith('http') ? 'noopener noreferrer' : undefined}
+                                    className="flex items-center gap-4 py-3 text-paper-dim hover:text-paper transition-colors group"
+                                >
+                                    <div className="w-11 h-11 shrink-0 bg-white/5 border border-white/10 rounded-full flex items-center justify-center text-accent group-hover:border-accent/40 transition-colors">
+                                        {item.icon}
+                                    </div>
+                                    <div>
+                                        <span className="text-[10px] tracking-[0.2em] uppercase text-paper-faint block mb-0.5">{item.label}</span>
+                                        <span className="text-sm">{item.value}</span>
+                                    </div>
+                                </Wrapper>
+                            );
+                        })}
                     </div>
                 </motion.div>
 
-                {/* Terminal Form */}
                 <motion.div
-                    initial={{ opacity: 0, x: 30 }}
-                    whileInView={{ opacity: 1, x: 0 }}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="bg-black/80 border border-cyber/30 p-6 rounded relative backdrop-blur-sm"
+                    className="bg-ink-soft/90 border border-white/10 p-8 rounded-2xl"
                 >
-                    <div className="absolute top-0 left-0 w-full h-8 bg-cyber/10 border-b border-cyber/30 flex items-center px-4 gap-2">
-                        <div className="w-3 h-3 rounded-full bg-red-500/80" />
-                        <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
-                        <div className="w-3 h-3 rounded-full bg-green-500/80" />
-                        <span className="ml-2 font-mono text-xs text-cyber/80">suyash@admin-terminal:~</span>
-                    </div>
-
-                    <form ref={form} onSubmit={sendEmail} className="mt-8 space-y-6">
+                    <form ref={form} onSubmit={sendEmail} className="space-y-6">
                         <div className="space-y-2">
-                            <label className="text-xs font-mono text-cyber">{">>"} ENTER_IDENTITY</label>
+                            <label className="text-xs text-paper-dim">Name</label>
                             <input
                                 type="text"
                                 name="user_name"
                                 required
-                                className="w-full bg-black/50 border-b border-gray-700 text-white px-2 py-2 focus:outline-none focus:border-cyber transition-colors font-mono"
-                                placeholder="Name"
+                                className="w-full bg-transparent border-b border-white/15 text-paper px-1 py-2.5 focus:outline-none focus:border-accent transition-colors placeholder:text-paper-faint"
+                                placeholder="Your name"
                             />
                         </div>
                         <div className="space-y-2">
-                            <label className="text-xs font-mono text-cyber">{">>"} ENTER_CONTACT_PROTOCOL</label>
+                            <label className="text-xs text-paper-dim">Email</label>
                             <input
                                 type="email"
                                 name="user_email"
                                 required
-                                className="w-full bg-black/50 border-b border-gray-700 text-white px-2 py-2 focus:outline-none focus:border-cyber transition-colors font-mono"
-                                placeholder="Email"
+                                className="w-full bg-transparent border-b border-white/15 text-paper px-1 py-2.5 focus:outline-none focus:border-accent transition-colors placeholder:text-paper-faint"
+                                placeholder="you@company.com"
                             />
                         </div>
                         <div className="space-y-2">
-                            <label className="text-xs font-mono text-cyber">{">>"} TRANSMIT_MESSAGE</label>
+                            <label className="text-xs text-paper-dim">Message</label>
                             <textarea
                                 name="message"
                                 required
-                                className="w-full bg-black/50 border-b border-gray-700 text-white px-2 py-2 focus:outline-none focus:border-cyber transition-colors font-mono h-32 resize-none"
-                                placeholder="Type your message..."
+                                className="w-full bg-transparent border-b border-white/15 text-paper px-1 py-2.5 focus:outline-none focus:border-accent transition-colors h-28 resize-none placeholder:text-paper-faint"
+                                placeholder="Tell me about your project..."
                             />
                         </div>
 
                         <motion.button
-                            whileHover={{ scale: 1.02 }}
+                            whileHover={{ scale: 1.01 }}
                             whileTap={{ scale: 0.98 }}
                             disabled={isLoading}
-                            className={`w-full border py-3 font-mono transition-all duration-300 flex items-center justify-center gap-2 ${status === 'success' ? 'bg-green-900/20 border-green-500 text-green-500' :
-                                status === 'error' ? 'bg-red-900/20 border-red-500 text-red-500' :
-                                    'bg-cyber/20 border-cyber text-cyber hover:bg-cyber hover:text-black'
-                                }`}
+                            className={`w-full py-3.5 rounded-full font-medium transition-all duration-300 flex items-center justify-center gap-2 ${
+                                status === 'success' ? 'bg-emerald-500/20 text-emerald-400' :
+                                status === 'error' ? 'bg-red-500/20 text-red-400' :
+                                'bg-paper text-ink hover:bg-accent'
+                            }`}
                         >
                             {isLoading ? (
                                 <Loader className="animate-spin" size={16} />
                             ) : status === 'success' ? (
-                                <> <CheckCircle size={16} /> TRANSMISSION_COMPLETE </>
+                                <><CheckCircle size={16} /> Message sent</>
                             ) : status === 'error' ? (
-                                <> <AlertCircle size={16} /> TRANSMISSION_FAILED </>
+                                <><AlertCircle size={16} /> Something went wrong</>
                             ) : (
-                                <> <Send size={16} /> EXECUTE_TRANSMISSION </>
+                                <><Send size={16} /> Send Message</>
                             )}
                         </motion.button>
-
-                        {/* Instruction Note */}
-                        {status === null && (
-                            <p className="text-[10px] text-gray-500 font-mono text-center pt-2">
-                                * System configured for EmailJS transmission.
-                            </p>
-                        )}
                     </form>
                 </motion.div>
 

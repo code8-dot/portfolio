@@ -1,58 +1,54 @@
 import React, { useRef } from 'react';
 import { motion, useMotionTemplate, useMotionValue, useSpring } from 'framer-motion';
-import { Folder, Github, ExternalLink, Activity, ScanFace, HeartHandshake, Wallet, Users } from 'lucide-react';
+import { Github, ExternalLink, ScanFace, HeartHandshake, Wallet, Users } from 'lucide-react';
+import TextReveal from './TextReveal';
 
 const projects = [
     {
-        title: "PEOPLESPARK HRM ECOSYSTEM",
-        description: "Multi-Tenant Human Resource Management ecosystem with hierarchical data model. Features real-time attendance, live workforce metrics, and role-based access control.",
-        tags: ["React Native", "React.js", "Firebase", "Redux"],
-        links: { github: "#", demo: "#" },
-        icon: <Users size={32} />
+        title: 'PeopleSpark HRM Ecosystem',
+        description: 'Multi-tenant human resource management ecosystem with a hierarchical data model. Real-time attendance, live workforce metrics, and role-based access control.',
+        tags: ['React Native', 'React.js', 'Firebase', 'Redux'],
+        links: { github: '#', demo: '#' },
+        icon: <Users size={26} />,
     },
     {
-        title: "MULTIMODAL DEEPFAKE DETECTION",
-        description: "Real-time deepfake detection system using PyTorch, torchvision, and timm. Analyzes both video (OpenCV) and audio (pydub) streams for authenticity verification.",
-        tags: ["PyTorch", "OpenCV", "Python", "Timm"],
-        links: { github: "https://github.com/code8-dot/deepfake-1st", demo: "#" },
-        icon: <ScanFace size={32} />
+        title: 'Multimodal Deepfake Detection',
+        description: 'Real-time deepfake detection system using PyTorch, torchvision, and timm. Analyzes both video (OpenCV) and audio (pydub) streams for authenticity verification.',
+        tags: ['PyTorch', 'OpenCV', 'Python', 'Timm'],
+        links: { github: 'https://github.com/code8-dot/deepfake-1st', demo: '#' },
+        icon: <ScanFace size={26} />,
     },
     {
-        title: "SEWA NGO PLATFORM",
-        description: "Full-stack web platform bridging the gap between donors and NGOs. Facilitates in-kind donations and resource management for social impact.",
-        tags: ["HTML/CSS", "JavaScript", "MySQL", "PHP"],
-        links: { github: "#", demo: "#" },
-        icon: <HeartHandshake size={32} />
+        title: 'SEWA NGO Platform',
+        description: 'Full-stack web platform bridging the gap between donors and NGOs. Facilitates in-kind donations and resource management for social impact.',
+        tags: ['HTML/CSS', 'JavaScript', 'MySQL', 'PHP'],
+        links: { github: '#', demo: '#' },
+        icon: <HeartHandshake size={26} />,
     },
     {
-        title: "PERSONAL FINANCE MANAGER",
-        description: "Cross-platform mobile application for tracking expenses and managing personal finances. Features real-time data sync and intuitive dashboard.",
-        tags: ["React Native", "Firebase", "Android"],
-        links: { github: "https://github.com/code8-dot/finance", demo: "#" },
-        icon: <Wallet size={32} />
-    }
+        title: 'Personal Finance Manager',
+        description: 'Cross-platform mobile application for tracking expenses and managing personal finances. Real-time data sync and an intuitive dashboard.',
+        tags: ['React Native', 'Firebase', 'Android'],
+        links: { github: 'https://github.com/code8-dot/finance', demo: '#' },
+        icon: <Wallet size={26} />,
+    },
 ];
 
-const TiltCard = ({ children, className = "" }) => {
+const TiltCard = ({ children, className = '' }) => {
     const ref = useRef(null);
     const x = useMotionValue(0);
     const y = useMotionValue(0);
+    const mouseXSpring = useSpring(x, { stiffness: 150, damping: 20 });
+    const mouseYSpring = useSpring(y, { stiffness: 150, damping: 20 });
 
-    const mouseXSpring = useSpring(x);
-    const mouseYSpring = useSpring(y);
-
-    const rotateX = useMotionTemplate`calc(${mouseYSpring} * -0.5deg)`;
-    const rotateY = useMotionTemplate`calc(${mouseXSpring} * 0.5deg)`;
+    const rotateX = useMotionTemplate`calc(${mouseYSpring} * -0.4deg)`;
+    const rotateY = useMotionTemplate`calc(${mouseXSpring} * 0.4deg)`;
 
     const handleMouseMove = (e) => {
         if (!ref.current) return;
         const rect = ref.current.getBoundingClientRect();
-        const width = rect.width;
-        const height = rect.height;
-        const mouseX = e.clientX - rect.left;
-        const mouseY = e.clientY - rect.top;
-        const xPct = mouseX / width - 0.5;
-        const yPct = mouseY / height - 0.5;
+        const xPct = (e.clientX - rect.left) / rect.width - 0.5;
+        const yPct = (e.clientY - rect.top) / rect.height - 0.5;
         x.set(xPct * 20);
         y.set(yPct * 20);
     };
@@ -67,11 +63,7 @@ const TiltCard = ({ children, className = "" }) => {
             ref={ref}
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
-            style={{
-                transformStyle: "preserve-3d",
-                rotateX,
-                rotateY,
-            }}
+            style={{ transformStyle: 'preserve-3d', rotateX, rotateY }}
             className={className}
         >
             {children}
@@ -79,82 +71,75 @@ const TiltCard = ({ children, className = "" }) => {
     );
 };
 
-const ProjectCard = ({ project, index }) => {
-    return (
-        <TiltCard className="group relative w-full h-full">
-            {/* Background/Border Gradient */}
-            <div className="absolute -inset-0.5 bg-gradient-to-r from-cyber to-cyber-purple opacity-30 group-hover:opacity-100 transition duration-500 blur leading-none rounded-lg" />
+const ProjectCard = ({ project, index }) => (
+    <TiltCard className="group relative w-full h-full">
+        <div className="relative bg-ink-soft/90 border border-white/10 group-hover:border-accent/40 p-7 h-full overflow-hidden rounded-2xl flex flex-col transition-colors duration-300">
+            <div
+                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                style={{ background: 'radial-gradient(circle at 30% 20%, rgba(139,124,246,0.12), transparent 60%)' }}
+            />
 
-            <div className="relative bg-black/90 border border-white/10 p-6 h-full overflow-hidden rounded-lg flex flex-col backdrop-blur-xl transform translate-z-10">
-
-                {/* Holographic Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-br from-cyber/5 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 pointer-events-none rounded-lg" />
-
-                {/* Scan line */}
-                <div className="absolute top-0 left-0 w-full h-[1px] bg-cyber/50 opacity-0 group-hover:animate-scan-fast pointer-events-none" />
-
-                {/* Content */}
-                <div className="flex justify-between items-start mb-6 transform translate-z-20">
-                    <div className="text-cyber p-3 bg-cyber/10 rounded-lg border border-cyber/30 group-hover:shadow-[0_0_15px_rgba(0,243,255,0.3)] transition-shadow duration-300">
-                        {project.icon}
-                    </div>
-                    <div className="flex gap-4">
-                        <a href={project.links.github} className="text-gray-400 hover:text-white transition-colors hover:scale-110 active:scale-95 duration-200">
-                            <Github size={20} />
-                        </a>
-                        <a href={project.links.demo} className="text-gray-400 hover:text-white transition-colors hover:scale-110 active:scale-95 duration-200">
-                            <ExternalLink size={20} />
-                        </a>
-                    </div>
+            <div className="flex justify-between items-start mb-7 relative">
+                <div className="text-accent p-3 bg-accent/10 rounded-xl border border-accent/20">
+                    {project.icon}
                 </div>
-
-                <div className="mb-4 flex items-center justify-between transform translate-z-20">
-                    <h3 className="text-xl font-orbitron font-bold text-white group-hover:text-cyber transition-colors">
-                        {project.title}
-                    </h3>
-                </div>
-
-                <p className="text-gray-400 text-sm mb-6 leading-relaxed flex-grow transform translate-z-20">
-                    {project.description}
-                </p>
-
-                <div className="flex flex-wrap gap-2 mt-auto transform translate-z-20">
-                    {project.tags.map((tag) => (
-                        <span key={tag} className="text-xs font-mono text-cyber-purple/80 border border-cyber-purple/20 px-2 py-1 rounded">
-                            #{tag}
-                        </span>
-                    ))}
-                </div>
+                <span className="font-display text-sm text-paper-faint pt-1">0{index + 1}</span>
             </div>
-        </TiltCard>
-    );
-};
+
+            <h3 className="font-display font-semibold text-xl text-paper mb-3 relative group-hover:text-accent transition-colors">
+                {project.title}
+            </h3>
+
+            <p className="text-paper-dim text-sm mb-6 leading-relaxed flex-grow relative">
+                {project.description}
+            </p>
+
+            <div className="flex flex-wrap gap-2 mb-6 relative">
+                {project.tags.map((tag) => (
+                    <span key={tag} className="text-xs text-paper-faint border border-white/10 px-2.5 py-1 rounded-full">
+                        {tag}
+                    </span>
+                ))}
+            </div>
+
+            <div className="flex gap-4 relative pt-4 border-t border-white/5">
+                <a href={project.links.github} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-sm text-paper-dim hover:text-paper transition-colors">
+                    <Github size={16} /> Code
+                </a>
+                <a href={project.links.demo} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-sm text-paper-dim hover:text-paper transition-colors">
+                    <ExternalLink size={16} /> Live
+                </a>
+            </div>
+        </div>
+    </TiltCard>
+);
 
 const Projects = () => {
     return (
-        <section id="projects" className="py-20 px-4 relative perspective-1000">
-            <div className="max-w-7xl mx-auto mb-16">
+        <section id="projects" className="py-28 px-6 relative" style={{ perspective: '1000px' }}>
+            <div className="max-w-6xl mx-auto mb-16">
                 <motion.div
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
                     viewport={{ once: true }}
-                    className="flex items-center gap-4 mb-4"
+                    className="flex items-center gap-2 text-xs tracking-[0.25em] uppercase text-paper-dim mb-4"
                 >
-                    <Activity className="text-cyber" />
-                    <span className="text-cyber font-mono tracking-widest leading-none">SYSTEM_PROJECTS_LOADED</span>
+                    <span className="w-6 h-px bg-accent" />
+                    Selected Work
                 </motion.div>
-                <h2 className="text-4xl md:text-5xl font-orbitron font-bold uppercase">
-                    Engineering <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyber via-white to-cyber-purple">Reality</span>
+                <h2 className="font-display font-semibold text-4xl md:text-5xl text-paper text-balance">
+                    <TextReveal text="Projects engineered to" />
+                    <span className="text-accent"><TextReveal text="solve real problems." delay={0.15} /></span>
                 </h2>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
                 {projects.map((project, index) => (
                     <motion.div
-                        key={index}
-                        initial={{ opacity: 0, y: 50 }}
+                        key={project.title}
+                        initial={{ opacity: 0, y: 40 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: index * 0.1 }}
+                        transition={{ duration: 0.5, delay: index * 0.08, ease: [0.16, 1, 0.3, 1] }}
                         viewport={{ once: true }}
                         className="h-full"
                     >
